@@ -38,7 +38,7 @@ class Open_manipulator_x:
         else:
             print('Unreachable position')
 
-            return 0
+            return 0 , 0 , 0 , 0
     
     def perform_MGD(self, joint_angles, path_time):
         # Function utilizing "/goal_joint_space_path" service for robot motion planning based on MGD (Modified Geometric Description).
