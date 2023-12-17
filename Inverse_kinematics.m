@@ -4,9 +4,9 @@ a2 = 0.13;
 a3 = 0.124;
 a4 = 0.130;
 
-xe = 0.06;
+xe = 0.04;
 ye = 0;
-ze = 0:0.001:0.18;
+ze = 0.05:0.001:0.15;
 d1 = 0.077;
 alpha = pi/2;
 
@@ -26,13 +26,13 @@ for i = ze
     %     disp('position atteignable')
     % end
     
-    q2 = pi/2 - acos(D);
+    q2 = pi/2 - acos(D) -11*pi/180;
     q2_deg = rad2deg(q2);
     
     r2 = r3 - a3*cos(q2);
-    z2 = z3 +a3*sin(q2);
+    z2 = z3  +a3*sin(q2);
     
-    q1 = atan2(r2 , z2);
+    q1 = atan2(r2 , z2) +11*pi/180;
     q1_deg = rad2deg(q1);
     
     q3 = q1 +alpha -q2 - pi/2;
@@ -61,20 +61,22 @@ for i = ze
     
     A=[0,0]; % Point A
     B=[0,0.077]; % Point B défini en fonctoin de A. On ne définit qu'une fois les points (pas de copier coller inutiles)
-    C=[r2,z2];
-    D= [r3,z3];
-    E = [r4,i];
+    C=B+[a2*sin(q1),a2*cos(q1)];
+    D=C+[0.024*cos(q1),-0.024*sin(q1)];
+    E= [r3,z3];
+    F = [r4,i];
     
     figure(1)
     clf
     
-    axis([[-0.200,0.200], [0,0.500]]);
+    axis([[-0.200,0.200], [0,0.700]]);
     % Set the dimensions of the figure window
     hold on
     plot([A(1), B(1)], [A(2), B(2)], 'b', 'LineWidth', 2);
     plot([B(1), C(1)], [B(2), C(2)], 'r', 'LineWidth', 2);
-    plot([D(1), C(1)], [D(2), C(2)], 'g', 'LineWidth', 2);
-    plot([D(1), E(1)], [D(2), E(2)], 'c', 'LineWidth', 2);
+    plot([D(1), C(1)], [D(2), C(2)], 'r', 'LineWidth', 2);
+    plot([D(1), E(1)], [D(2), E(2)], 'g', 'LineWidth', 2);
+    plot([F(1), E(1)], [F(2), E(2)], 'c', 'LineWidth', 2);
     
     
     axis square;
@@ -88,4 +90,3 @@ grid on
 
 
 set(gca, 'Color', 'none'); set(gcf, 'Color', 'w');
-
